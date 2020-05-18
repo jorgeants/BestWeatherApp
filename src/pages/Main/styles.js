@@ -14,12 +14,14 @@ export const Container = styled.View`
   align-items: center;
 `;
 export const NowIn = styled.Text`
-  font-size: 13px;
+  font-family: 'Roboto-Regular';
+  font-size: 14px;
   font-weight: 500;
   color: ${theme.light};
 `;
 export const LabelLocaltion = styled.Text`
-  font-size: 16px;
+  font-family: 'Comfortaa-Regular';
+  font-size: 20px;
   font-weight: 400;
   color: ${theme.light};
 `;
@@ -30,11 +32,12 @@ export const IconCurrentWeather = styled.View`
   border-color: ${theme.light};
 `;
 export const LabelTemp = styled.Text`
-  font-size: 22px;
-  font-weight: bold;
+  font-family: 'Comfortaa-SemiBold';
+  font-size: 50px;
   color: ${theme.light};
 `;
 export const LabelWeatherDescription = styled.Text`
-  font-size: 15px;
+  font-family: 'Roboto-Regular';
+  font-size: 25px;
   color: ${theme.light};
 `;
