@@ -14,7 +14,7 @@ function* fetchForecast(action) {
 
     const response = yield call(
       api.get,
-      `/weather?key=${API_KEY}&lat=${latitude}&log=${longitude}&user_ip=remote`
+      `/weather?key=${API_KEY}&lat=${latitude}&log=${longitude}&user_ip=remote&locale=pt`
     );
 
     yield put(forecastSuccess(response.data.results));

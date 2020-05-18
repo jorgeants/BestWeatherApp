@@ -3,8 +3,9 @@ import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 
+import FatherIcon from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { requestForecast } from '~/store/modules/forecast/actions';
-
 import { theme } from '~/theme/globalStyle';
 
 import {
@@ -21,14 +22,12 @@ import {
 const Main = () => {
   const [location, setLocation] = useState(null);
   const [watchID, setWatchID] = useState(null);
-  // const [locationLoading, setLocationLoading] = useState(false);
   const dispatch = useDispatch();
   const { loading, data } = useSelector((state) => state.forecast);
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
-        // const initialPosition = JSON.stringify(position);
         setLocation(position);
       },
       (error) => Alert.alert('Error', JSON.stringify(error)),
@@ -36,7 +35,6 @@ const Main = () => {
     );
     setWatchID(
       Geolocation.watchPosition((position) => {
-        // const lastPosition = JSON.stringify(position);
         setLocation(position);
       })
     );
@@ -51,7 +49,6 @@ const Main = () => {
 
   useEffect(() => {
     if (location) {
-      console.log('location', location);
       dispatch(
         requestForecast(location.coords.latitude, location.coords.longitude)
       );
@@ -67,6 +64,8 @@ const Main = () => {
           <IconCurrentWeather />
           <LabelTemp>{`${data.temp}º`}</LabelTemp>
           <LabelWeatherDescription>{data.description}</LabelWeatherDescription>
+          <FatherIcon name="wind" size={30} color={theme.light} />
+          <NowIn>{data.wind_speedy}</NowIn>
         </Container>
       </SafeContainer>
     </Background>
