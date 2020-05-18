@@ -1,4 +1,5 @@
 import { all, takeLatest, call, put, select } from 'redux-saga/effects';
+import { API_KEY } from 'react-native-dotenv';
 import api from '~/services/api';
 
 import { REQUEST_FORECAST } from '~/store/modules/forecast/constants';
@@ -13,14 +14,12 @@ function* fetchForecast(action) {
 
     const response = yield call(
       api.get,
-      `/weather?lat=${latitude}&lon=${longitude}`
+      `/weather?key=${API_KEY}&lat=${latitude}&log=${longitude}&user_ip=remote`
     );
 
-    yield put(forecastSuccess(response.data.result));
+    yield put(forecastSuccess(response.data.results));
   } catch (error) {
-    yield put(
-      forecastFailure('Ops! Ocorreu algum erro. Tente novamente mais tarde.')
-    );
+    yield put(forecastFailure(error));
   }
 }
 

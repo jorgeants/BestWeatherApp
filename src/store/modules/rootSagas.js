@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-// import users from './users/sagas';
+import forecast from '~/store/modules/forecast/sagas';
 
 export default function* rootSaga() {
-  return yield all([]);
+  return yield all([forecast]);
 }

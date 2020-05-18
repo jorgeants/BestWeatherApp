@@ -42,7 +42,6 @@ export default function forecast(state = defaultState, action) {
     case REQUEST_FORECAST:
       return {
         ...state,
-        searchTerm: action.payload.searchTerm,
         loading: true,
         error: false,
         errorMessage: '',
@@ -53,8 +52,7 @@ export default function forecast(state = defaultState, action) {
         loading: false,
         error: false,
         errorMessage: '',
-        list: action.payload.users,
-        nextPageURL: action.payload.nextPageURL,
+        data: action.payload.data,
       };
     case FORECAST_FAILURE:
       return {

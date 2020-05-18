@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { requestForecast } from '~/store/modules/forecast/actions';
 
 import { theme } from '~/theme/globalStyle';
 
@@ -14,15 +17,22 @@ import {
 } from './styles';
 
 const Main = () => {
+  const dispatch = useDispatch();
+  const { loading, data } = useSelector((state) => state.forecast);
+
+  useEffect(() => {
+    dispatch(requestForecast(-22.5435364, -44.1055362));
+  }, []);
+
   return (
     <Background colors={[theme.primary, theme.secondary]}>
       <SafeContainer>
         <Container>
           <NowIn>Agora em</NowIn>
-          <LabelLocaltion>Barra Mansa</LabelLocaltion>
+          <LabelLocaltion>{data.city}</LabelLocaltion>
           <IconCurrentWeather />
-          <LabelTemp>17º</LabelTemp>
-          <LabelWeatherDescription>Tempo limpo</LabelWeatherDescription>
+          <LabelTemp>{`${data.temp}º`}</LabelTemp>
+          <LabelWeatherDescription>{data.description}</LabelWeatherDescription>
         </Container>
       </SafeContainer>
     </Background>
