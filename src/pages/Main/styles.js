@@ -26,10 +26,9 @@ export const LabelLocaltion = styled.Text`
   color: ${theme.light};
 `;
 export const IconCurrentWeather = styled.View`
-  width: 100px;
-  height: 100px;
-  border-width: 2px;
-  border-color: ${theme.light};
+  width: 140px;
+  height: 140px;
+  margin: 20px 0;
 `;
 export const LabelTemp = styled.Text`
   font-family: 'Comfortaa-SemiBold';

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
+import LottieView from 'lottie-react-native';
 
 import FatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -56,12 +57,19 @@ const Main = () => {
   }, [location]);
 
   return (
-    <Background colors={[theme.primary, theme.secondary]}>
+    // <Background colors={[theme.primary, theme.secondary]}>
+    <Background colors={['#82AED9', '#A78B91', '#193D64']}>
       <SafeContainer>
         <Container>
           <NowIn>Agora em</NowIn>
           <LabelLocaltion>{data.city}</LabelLocaltion>
-          <IconCurrentWeather />
+          <IconCurrentWeather>
+            <LottieView
+              source={require('../../sol-pancadas-chuva.json')}
+              autoPlay
+              loop
+            />
+          </IconCurrentWeather>
           <LabelTemp>{`${data.temp}º`}</LabelTemp>
           <LabelWeatherDescription>{data.description}</LabelWeatherDescription>
           <FatherIcon name="wind" size={30} color={theme.light} />
