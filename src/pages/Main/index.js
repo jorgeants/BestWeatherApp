@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
+import NetInfo from '@react-native-community/netinfo';
+import { showMessage } from 'react-native-flash-message';
 
 import FatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -30,35 +33,44 @@ import {
 } from './styles';
 
 const Main = () => {
+  const [hasInternetConnection, setHasInternetConnection] = useState(false);
   const [location, setLocation] = useState(null);
-  const [watchID, setWatchID] = useState(null);
   const dispatch = useDispatch();
-  const { loading, data } = useSelector((state) => state.forecast);
+  const { loading, error, data } = useSelector((state) => state.forecast);
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
         setLocation(position);
       },
-      (error) => console.log(JSON.stringify(error)),
+      () => {
+        showMessage({
+          message: 'Aconteceu algo inesperado :(',
+          description: 'Erro ao determinar sua localização',
+          type: 'danger',
+        });
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-    setWatchID(
-      Geolocation.watchPosition((position) => {
-        setLocation(position);
-      })
     );
   };
 
   useEffect(() => {
     getLocation();
-    return () => {
-      Geolocation.clearWatch(watchID);
-    };
+    NetInfo.fetch().then((state) => {
+      setHasInternetConnection(state.isConnected);
+      if (!state.isConnected) {
+        showMessage({
+          message: 'Sem conexão com a internet',
+          description: 'Verifique sua conexão',
+          type: 'danger',
+        });
+      }
+    });
   }, []);
 
   useEffect(() => {
-    if (location) {
+    console.log('hasInternetConnection', hasInternetConnection);
+    if (hasInternetConnection && location) {
       dispatch(
         requestForecast(location.coords.latitude, location.coords.longitude)
       );
@@ -68,54 +80,70 @@ const Main = () => {
   return (
     <Background colors={[theme.primary, theme.secondary, theme.tertiary]}>
       <SafeContainer>
-        <Container>
-          <CurrentWeather>
-            <LabelLocaltion>{data.city}</LabelLocaltion>
+        {!error && (
+          <Container>
+            {loading ? (
+              <ActivityIndicator size="large" color={theme.light} />
+            ) : (
+              <>
+                <CurrentWeather>
+                  <LabelLocaltion>{data.city}</LabelLocaltion>
 
-            <WrapperIconTemperature>
-              <IconCurrentWeather>
-                <WeatherAnimationIcon condition={data.condition_slug} />
-              </IconCurrentWeather>
-              <Temperature>
-                <LabelTemperature>{`${data.temp}º`}</LabelTemperature>
-              </Temperature>
-            </WrapperIconTemperature>
+                  <WrapperIconTemperature>
+                    <IconCurrentWeather>
+                      <WeatherAnimationIcon condition={data.condition_slug} />
+                    </IconCurrentWeather>
+                    <Temperature>
+                      <LabelTemperature>{`${data.temp}º`}</LabelTemperature>
+                    </Temperature>
+                  </WrapperIconTemperature>
 
-            <LabelWeatherDescription>
-              {data.description}
-            </LabelWeatherDescription>
+                  <LabelWeatherDescription>
+                    {data.description}
+                  </LabelWeatherDescription>
 
-            <OtherInformations>
-              <Column>
-                <MoreInformation>
-                  <FatherIcon name="wind" size={24} color={theme.light} />
-                  <InfoLabel>{data.wind_speedy}</InfoLabel>
-                </MoreInformation>
-                <MoreInformation>
-                  <FatherIcon name="sunrise" size={24} color={theme.light} />
-                  <InfoLabel>{data.sunrise}</InfoLabel>
-                </MoreInformation>
-              </Column>
+                  <OtherInformations>
+                    <Column>
+                      <MoreInformation>
+                        <FatherIcon name="wind" size={24} color={theme.light} />
+                        <InfoLabel>{data.wind_speedy}</InfoLabel>
+                      </MoreInformation>
+                      <MoreInformation>
+                        <FatherIcon
+                          name="sunrise"
+                          size={24}
+                          color={theme.light}
+                        />
+                        <InfoLabel>{data.sunrise}</InfoLabel>
+                      </MoreInformation>
+                    </Column>
 
-              <Column>
-                <MoreInformation>
-                  <MaterialCommunityIcons
-                    name="water-outline"
-                    size={24}
-                    color={theme.light}
-                  />
-                  <InfoLabel>{data.humidity}%</InfoLabel>
-                </MoreInformation>
-                <MoreInformation>
-                  <FatherIcon name="sunset" size={24} color={theme.light} />
-                  <InfoLabel>{data.sunset}</InfoLabel>
-                </MoreInformation>
-              </Column>
-            </OtherInformations>
-          </CurrentWeather>
+                    <Column>
+                      <MoreInformation>
+                        <MaterialCommunityIcons
+                          name="water-outline"
+                          size={24}
+                          color={theme.light}
+                        />
+                        <InfoLabel>{data.humidity}%</InfoLabel>
+                      </MoreInformation>
+                      <MoreInformation>
+                        <FatherIcon
+                          name="sunset"
+                          size={24}
+                          color={theme.light}
+                        />
+                        <InfoLabel>{data.sunset}</InfoLabel>
+                      </MoreInformation>
+                    </Column>
+                  </OtherInformations>
+                </CurrentWeather>
 
-          <Forecast data={data.forecast} />
-        </Container>
+                <Forecast data={data.forecast} />
+              </>
+            )}
+          </Container>
+        )}
       </SafeContainer>
     </Background>
   );

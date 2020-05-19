@@ -1,5 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
 
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
@@ -17,6 +18,11 @@ const App = () => {
         <>
           <StatusBar barStyle="light-content" />
           <Main />
+          <FlashMessage
+            position="top"
+            animationDuration={400}
+            duration={4000}
+          />
         </>
       </PersistGate>
     </Provider>
