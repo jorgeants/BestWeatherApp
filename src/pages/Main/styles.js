@@ -1,7 +1,10 @@
 import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { Dimensions } from 'react-native';
 
 import { theme } from '~/theme/globalStyle';
+
+const heightScreen = Dimensions.get('screen').height;
 
 export const Background = styled(LinearGradient)`
   flex: 1;
@@ -22,7 +25,7 @@ export const LabelLocaltion = styled.Text`
   font-size: 22px;
   font-weight: 400;
   color: ${theme.light};
-  margin-bottom: 40px;
+  margin-bottom: ${heightScreen > 667 ? `40px` : `20px`};
 `;
 export const WrapperIconTemperature = styled.View`
   flex-direction: row;
@@ -30,15 +33,13 @@ export const WrapperIconTemperature = styled.View`
   align-items: center;
 `;
 export const IconCurrentWeather = styled.View`
-  width: 120px;
-  height: 120px;
+  width: ${heightScreen > 667 ? `120px` : `90px`};
+  height: ${heightScreen > 667 ? `120px` : `90px`};
   flex: 1;
   justify-content: center;
   align-items: center;
 `;
 export const Temperature = styled.View`
-  padding-left: 10px;
-  margin-left; 20px;
   border-left-width: 1px;
   border-left-color: ${theme.light};
   padding: 10px 0;
@@ -48,20 +49,20 @@ export const Temperature = styled.View`
 `;
 export const LabelTemperature = styled.Text`
   font-family: 'Comfortaa-SemiBold';
-  font-size: 80px;
+  font-size: ${heightScreen > 667 ? `80px` : `60px`};
   color: ${theme.light};
 `;
 export const LabelWeatherDescription = styled.Text`
   font-family: 'Roboto-Regular';
   font-size: 22px;
   color: ${theme.light};
-  margin-top: 30px;
+  margin-top: ${heightScreen > 667 ? `30px` : `20px`};
 `;
 export const OtherInformations = styled.View`
   width: 100%
   flex-direction: row;
   justify-content: center;
-  padding: 20px;
+  padding: ${heightScreen > 667 ? `20px` : `10px`};;
 `;
 export const Column = styled.View`
   padding: 15px;
@@ -69,7 +70,7 @@ export const Column = styled.View`
 export const MoreInformation = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 5px;
+  padding: ${heightScreen > 667 ? `5px` : `3px`};
 `;
 export const InfoLabel = styled.Text`
   font-family: 'Roboto-Regular';

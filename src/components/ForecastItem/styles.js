@@ -38,10 +38,12 @@ export const IconCondition = styled.View`
   margin-bottom: 10px;
 `;
 export const LabelDescription = styled.Text`
+  min-height: 34px;
   font-family: 'Roboto-Regular';
   color: ${theme.light};
   font-size: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  text-align: center;
 `;
 export const Temperature = styled.View`
   width: 100%;
