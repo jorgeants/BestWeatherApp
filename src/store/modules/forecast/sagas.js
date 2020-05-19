@@ -1,5 +1,6 @@
-import { all, takeLatest, call, put, select } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 import { API_KEY } from 'react-native-dotenv';
+import { showMessage } from 'react-native-flash-message';
 import api from '~/services/api';
 
 import { REQUEST_FORECAST } from '~/store/modules/forecast/constants';
@@ -19,7 +20,12 @@ function* fetchForecast(action) {
 
     yield put(forecastSuccess(response.data.results));
   } catch (error) {
-    yield put(forecastFailure(error));
+    yield put(forecastFailure(error.errorMessage));
+    yield showMessage({
+      message: 'Aconteceu algo inesperado :(',
+      description: 'Não foi possível obter os dados da previsão do tempo',
+      type: 'danger',
+    });
   }
 }
 

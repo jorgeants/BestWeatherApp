@@ -6,7 +6,7 @@ export default (reducers) => {
     {
       key: 'github_viewer_app',
       storage: AsyncStorage,
-      whitelist: ['users', 'repositories'],
+      whitelist: ['forecast'],
     },
     reducers
   );
