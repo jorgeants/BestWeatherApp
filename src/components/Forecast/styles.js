@@ -11,5 +11,5 @@ export const ForecastTitle = styled.Text`
   color: ${theme.light};
   font-size: 18px;
   text-align: center;
-  margin-bottom: ${heightScreen > 667 ? `30px` : `20px`};
+  margin-bottom: ${heightScreen > 810 ? `30px` : `20px`};
 `;

@@ -25,7 +25,7 @@ export const LabelLocaltion = styled.Text`
   font-size: 22px;
   font-weight: 400;
   color: ${theme.light};
-  margin-bottom: ${heightScreen > 667 ? `40px` : `20px`};
+  margin-bottom: ${heightScreen > 810 ? `40px` : `20px`};
 `;
 export const WrapperIconTemperature = styled.View`
   flex-direction: row;
@@ -33,8 +33,8 @@ export const WrapperIconTemperature = styled.View`
   align-items: center;
 `;
 export const IconCurrentWeather = styled.View`
-  width: ${heightScreen > 667 ? `120px` : `90px`};
-  height: ${heightScreen > 667 ? `120px` : `90px`};
+  width: ${heightScreen > 810 ? `120px` : `90px`};
+  height: ${heightScreen > 810 ? `120px` : `90px`};
   flex: 1;
   justify-content: center;
   align-items: center;
@@ -49,20 +49,20 @@ export const Temperature = styled.View`
 `;
 export const LabelTemperature = styled.Text`
   font-family: 'Comfortaa-SemiBold';
-  font-size: ${heightScreen > 667 ? `80px` : `60px`};
+  font-size: ${heightScreen > 810 ? `80px` : `60px`};
   color: ${theme.light};
 `;
 export const LabelWeatherDescription = styled.Text`
   font-family: 'Roboto-Regular';
   font-size: 22px;
   color: ${theme.light};
-  margin-top: ${heightScreen > 667 ? `30px` : `20px`};
+  margin-top: ${heightScreen > 810 ? `30px` : `20px`};
 `;
 export const OtherInformations = styled.View`
   width: 100%
   flex-direction: row;
   justify-content: center;
-  padding: ${heightScreen > 667 ? `20px` : `10px`};;
+  padding: ${heightScreen > 810 ? `20px` : `10px`};;
 `;
 export const Column = styled.View`
   padding: 15px;
@@ -70,7 +70,7 @@ export const Column = styled.View`
 export const MoreInformation = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: ${heightScreen > 667 ? `5px` : `3px`};
+  padding: ${heightScreen > 810 ? `5px` : `3px`};
 `;
 export const InfoLabel = styled.Text`
   font-family: 'Roboto-Regular';

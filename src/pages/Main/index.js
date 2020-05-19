@@ -69,7 +69,6 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    console.log('hasInternetConnection', hasInternetConnection);
     if (hasInternetConnection && location) {
       dispatch(
         requestForecast(location.coords.latitude, location.coords.longitude)
